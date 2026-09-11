@@ -11,7 +11,7 @@ category: Book
 # multiple tag entries are possible
 tags: [Linux, Developing, General, Books]
 # thumbnail image for post
-img: ":booksPost.png"
+img: ":BooksPost.jpg"
 # disable comments on this page
 comments_disable: false
 
