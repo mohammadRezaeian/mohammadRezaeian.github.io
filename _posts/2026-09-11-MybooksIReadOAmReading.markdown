@@ -37,19 +37,36 @@ date: 2026-09-11 14:00:00 +0900
 published: true
 ---
 
-<h1><b>Hey, thank you for reading this post, and I just wrote to introduce my books just for fun.</b></h1>
+# Books
 
-<h2>It has two tables. 
-One is for specialized books, and the other is for romance. 
+Hey, thank you for reading this post, and I just wrote to introduce my books just for fun.
+<br>
+<br>
+It has two tables. One is for specialized books, and the other is for romance. I might introduce other categories in the future, but I haven't decided yet. If you have any suggestions, please [email me](mailto:mohammadrezaeian598@gmail.com).
+<br>
+<br>
+---
 
-I might introduce other categories in the future, but I haven’t decided yet. If you have any suggestions, please [email me](mailto:mohammadrezaeian598@gmail.com).
+## Romance Novels
 
-</h2>
-<h3>Romance Novels</h3>
-| Book Title | Author | Genre |
-| The Brothers Karamazov | Fyodor Dostoevsky | Rommance | The story is about three brothers. The father and one of the sons are fighting over a girl.
+| Book Title | Author | Genre | Description |
+| :--- | :--- | :--- | :--- |
+| *Example Romance Book* | Author Name | Romance | A short description about the romance novel... |
+<br>
+<br>
+---
 
+## Specialized Books
+
+| Book Title | Author | Field / Subject | Description |
+| :--- | :--- | :--- | :--- |
+| The Brothers Karamazov | Fyodor Dostoevsky | Philosophy / Classic | The story is about three brothers and deep philosophical dilemmas. |
+
+<br>
+<br>
+
+---
 
 Enjoy Times!
 
-<i>Thank you for reading this post. I wish you to have a great time.</i>
+*Thank you for reading this post. I wish you to have a great time.*
