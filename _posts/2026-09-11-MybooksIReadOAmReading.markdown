@@ -45,18 +45,8 @@ Hey, thank you for reading this post, and I just wrote to introduce my books jus
 It has two tables. One is for specialized books, and the other is for romance. I might introduce other categories in the future, but I haven't decided yet. If you have any suggestions, please [email me](mailto:mohammadrezaeian598@gmail.com).
 <br>
 <br>
----
 
 ## Romance Novels
-
-| Book Title | Author | Genre | Description |
-| :--- | :--- | :--- | :--- |
-| *Example Romance Book* | Author Name | Romance | A short description about the romance novel... |
-<br>
-<br>
----
-
-## Specialized Books
 
 | Book Title | Author | Field / Subject | Description |
 | :--- | :--- | :--- | :--- |

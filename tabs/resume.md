@@ -75,9 +75,8 @@ page_data:
     - type: id_experience
       title: "<a href=https://www.yaasie.com>Yaas Arghavani</a>"
       info:  "<b>Embedded linux Software Developer </b> <b style=\"float: right;\">2024-2026</b><br><br>
-      My responsibilities included developing software for <b>embedded Linux devices</b> using C/C++. I was responsible for maintaining and optimizing embedded boards, which involved <b>modifying communication protocols</b>, </b>resolving security vulnerabilities</b>, and implementing new features. Additionally, I utilized the Qt framework to develop applications for cashless kiosk systems.
+      My responsibilities included developing software for <b>embedded Linux devices</b> using C/C++. I was responsible for maintaining and optimizing embedded boards, which involved <b>modifying communication protocols</b>, </b>resolving security vulnerabilities</b>, and implementing new features. Additionally, I utilized the Qt framework to develop applications for cashless kiosk systems."
 
-  
     - type: id_experience
       title: "<a href=http://www.ehyadarman.com>Ehya Darman Pishrafte</a>"
       info:  "<b>Embedded linux Software Developer </b> <b style=\"float: right;\">2022-2024</b><br><br>
