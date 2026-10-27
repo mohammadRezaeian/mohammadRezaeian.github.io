@@ -16,7 +16,7 @@ img: ":Tor.png"
 comments_disable: false
 
 # publish date
-date: 2026-10-27 21:14:20 +0900
+date: 2026-10-27 23:14:20 +0900
 
 published: true
 ---
