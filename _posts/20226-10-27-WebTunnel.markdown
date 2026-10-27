@@ -1,0 +1,235 @@
+---
+# multilingual page pair id, this must pair with translations of this page. (This name must be unique)
+lng_pair: Why we must use WebTunnel
+title: "Why we need to webtunnel plugin tor and how we can use it in fedora"
+
+# post specific
+# if not specified, .name will be used from _data/owner/[language].yml
+author: Mohammad
+# multiple category is not supported
+category: Linux
+# multiple tag entries are possible
+tags: [Network , Tor, Linux]
+# thumbnail image for post
+img: ":Tor.png"
+# disable comments on this page
+comments_disable: false
+
+# publish date
+date: 2026-10-27 21:14:20 +0900
+
+published: true
+---
+
+## 1. Why Do We Need WebTunnel?
+
+Tor is a privacy network that helps users protect their privacy by routing traffic through multiple relays. However, in some networks, direct access to Tor is blocked or restricted.
+
+Tor Bridges and Pluggable Transports help users connect to the Tor network when ordinary connections are unavailable.
+
+**WebTunnel** is a Tor pluggable transport designed to make a connection to a Tor bridge resemble ordinary HTTPS web traffic. This can make it more difficult for network filters to identify and block Tor traffic based only on its connection pattern.
+
+WebTunnel is particularly useful in networks where direct Tor connections are blocked. However, it does not guarantee that a connection will always work, because its effectiveness depends on the network and the availability of working bridges.
+
+You can learn more about Tor bridges in the [official Tor Project documentation](https://support.torproject.org/little-t-tor/circumvention/using-bridges/).
+
+## 2. Installing Lyrebird on Fedora
+
+Lyrebird is a program that implements several Tor pluggable transports, including WebTunnel and obfs4.
+
+On Fedora, you can install Lyrebird using the following community-maintained COPR repository:
+
+[Lyrebird COPR Repository](https://copr.fedorainfracloud.org/coprs/alone/lyrebird/)
+
+First, enable the repository:
+
+```bash
+sudo dnf copr enable alone/lyrebird
+```
+
+Then install Lyrebird:
+
+```bash
+sudo dnf install lyrebird
+```
+
+After installation, verify that the executable is available:
+
+```bash
+command -v lyrebird
+```
+
+For the configuration used in this guide, the expected executable path is:
+
+```text
+/usr/bin/lyrebird
+```
+
+If the command returns a different path, use the actual path in your Tor configuration.
+
+> **Note:** COPR repositories are community-maintained. Check the repository's current package version and supported Fedora releases before installing it.
+
+## 3. Configuring Tor to Use Lyrebird
+
+For this setup, the Tor configuration file is:
+
+```text
+/etc/tor/obfs4.torrc
+```
+
+Open the file with your preferred text editor:
+
+```bash
+sudo nano /etc/tor/obfs4.torrc
+```
+
+Look for the following configuration line:
+
+```text
+ClientTransportPlugin obfs2,obfs3,obfs4,scramblesuit,webtunnel,meek_lite exec /usr/bin/lyrebird
+```
+
+If the line is missing, add it to the configuration file and save your changes.
+
+This line tells Tor to use Lyrebird for the listed pluggable transports.
+
+The configuration includes both `webtunnel` and `meek_lite`, allowing Tor to invoke Lyrebird for these transports when the installed build supports them and the corresponding transport is configured correctly.
+
+**Important:** The presence of a transport name in this line does not automatically configure that transport or provide a working bridge. You must still use the appropriate bridge configuration.
+
+## 4. Obtaining WebTunnel Bridges
+
+To connect through WebTunnel, you need a working WebTunnel bridge.
+
+You can obtain WebTunnel bridges through the official Tor Project bridge distribution service:
+
+[https://bridges.torproject.org/](https://bridges.torproject.org/)
+
+On the website, select the WebTunnel transport in the advanced options and request bridges.
+
+You can also use the official Tor Project Telegram bot, `@GetBridgesBot`, and request WebTunnel bridges.
+
+Once you receive the bridge lines, copy them into your Tor configuration file.
+
+A WebTunnel bridge line generally has the following structure:
+
+```text
+Bridge webtunnel <IP_ADDRESS>:<PORT> <FINGERPRINT> url=<URL> ver=0.0.1
+```
+
+This is only an example of the format. Replace the placeholders with the complete values supplied by the Tor Project.
+
+Make sure the line starts with `Bridge` if the supplied bridge line does not already include that keyword.
+
+For example, the configuration file should contain the following option:
+
+```text
+UseBridges 1
+```
+
+This tells Tor to use bridges instead of connecting directly to public Tor relays.
+
+The `Bridge` line must contain the actual bridge information. Do not copy the example placeholders as a real bridge configuration.
+
+## 5. Starting Tor on Fedora
+
+After configuring the transport and adding your bridge lines, start the Tor instance:
+
+```bash
+sudo systemctl start tor@obfs4.service
+```
+
+To check the service status, run:
+
+```bash
+sudo systemctl status tor@obfs4.service
+```
+
+To follow the logs in real time, use:
+
+```bash
+sudo journalctl -xfu tor@obfs4
+```
+
+This command lets you monitor Tor's logs as it attempts to establish a connection.
+
+If you modify the configuration while the service is running, restart the instance to apply the changes:
+
+```bash
+sudo systemctl restart tor@obfs4.service
+```
+
+If the connection fails, the logs can help you identify problems such as an invalid configuration, a missing executable, or an unreachable bridge.
+
+## 6. Using meek_lite with Lyrebird
+
+Another useful feature of the Lyrebird package is its support for additional pluggable transports.
+
+Depending on the installed build, Lyrebird can also support `meek_lite`.
+
+`meek_lite` and WebTunnel are different transports:
+
+- **WebTunnel** makes a connection to a Tor bridge resemble ordinary HTTPS traffic.
+- **meek_lite** uses a different circumvention approach involving web infrastructure to help disguise Tor connections.
+
+The `ClientTransportPlugin` line in this guide already includes `meek_lite`:
+
+```text
+ClientTransportPlugin obfs2,obfs3,obfs4,scramblesuit,webtunnel,meek_lite exec /usr/bin/lyrebird
+```
+
+Therefore, if the installed Lyrebird build supports `meek_lite`, you do not need a separate executable just to declare that transport.
+
+However, **you must use the correct configuration for the transport you want to use**. Do not append the word `webtunnel` to an existing bridge line and expect it to become a different transport.
+
+For transports that require a bridge, obtain a bridge appropriate for that transport and use the exact bridge line supplied by the relevant source. Not every transport uses the same bridge format, and some transports have different bridge-discovery requirements.
+
+For additional details, consult the [official Tor Project documentation on bridges](https://support.torproject.org/little-t-tor/circumvention/using-bridges/).
+
+## 7. Troubleshooting
+
+If Tor does not connect, check the following:
+
+1. **Verify the Lyrebird executable.**
+
+   ```bash
+   command -v lyrebird
+   ```
+
+   Confirm that the path matches the one configured in `ClientTransportPlugin`.
+
+2. **Check the configuration file.**
+
+   ```bash
+   sudo nano /etc/tor/obfs4.torrc
+   ```
+
+   Verify that `ClientTransportPlugin`, `UseBridges 1`, and your bridge lines are present and correctly formatted.
+
+3. **Check the service status.**
+
+   ```bash
+   sudo systemctl status tor@obfs4.service
+   ```
+
+4. **Inspect the logs.**
+
+   ```bash
+   sudo journalctl -xfu tor@obfs4
+   ```
+
+5. **Check your bridge.**
+
+   A bridge may be unavailable or blocked. If your configuration is correct but the connection still fails, request another bridge from the official Tor Project bridge distribution service.
+
+6. **Verify transport support.**
+
+   Make sure the installed Lyrebird build supports the transport you are trying to use. Listing a transport in the configuration does not guarantee that the installed executable implements it.
+
+## Conclusion
+
+WebTunnel is a useful option for accessing Tor in networks where ordinary Tor connections are blocked or restricted.
+
+On Fedora, Lyrebird provides a way to use WebTunnel and other supported pluggable transports from a single executable. By installing Lyrebird from COPR, configuring Tor, obtaining the appropriate bridges, and checking the service logs, you can troubleshoot your setup and experiment with different circumvention methods.
+
+The most important point is to use the correct bridge configuration for each transport. WebTunnel, obfs4, and meek_lite are not interchangeable, and the availability of each depends on the installed software and the network you are using.
