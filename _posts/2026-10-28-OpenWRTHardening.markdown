@@ -16,7 +16,7 @@ img: ":OpenWrt.svg"
 comments_disable: false
 
 # publish date
-date: 2027-10-28 15:00:00 +0900
+date: 2026-10-28 15:00:00 +0900
 
 # seo
 # if not specified, date will be used.
