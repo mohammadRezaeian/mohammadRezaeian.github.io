@@ -169,15 +169,3 @@ published: true
 ## بخش ۶: نامعادلات
 * **قانون طلایی علامت منفی:** ضرب یا تقسیم طرفین نامعادله در عدد منفی، جهت علامت را برعکس می‌کند.
   * مثال: $-2x \le 8 \rightarrow x \ge -4$ (جهت علامت برگشت).
-
-
-<!-- KaTeX Stylesheet & Script for rendering math formulas -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" crossorigin="anonymous"
-    onload="renderMathInElement(document.body, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false}
-      ]
-    });"></script>
