@@ -36,7 +36,7 @@ date: 2026-11-01 12:00:00 +0900
 # to disable this page, simply set published: false or delete this file
 published: true
 ---
-
+<div dir="rtl" style="text-align: right;">
 # 📜 چیت‌شیت جامع و کامل ریاضیات پایه (همراه با مثال)
 
 ## بخش ۱: حساب پایه، اعداد و اولویت‌ها
@@ -180,3 +180,5 @@ published: true
         {left: '$', right: '$', display: false}
       ]
     });"></script>
+    
+</div>
